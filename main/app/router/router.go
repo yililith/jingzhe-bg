@@ -1,10 +1,11 @@
 package router
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"jingzhe-bg/main/internal/config"
 	"jingzhe-bg/main/middleware"
+	"net"
+	"strconv"
 )
 
 var (
@@ -13,10 +14,13 @@ var (
 )
 
 func InitRouter() {
+	// 设置为 Release 模式（禁用 Debug 日志）
+	gin.SetMode(gin.ReleaseMode)
 	// 初始化路由
-	router := gin.Default()
+	router := gin.New()
 	// 解决跨域问题
 	router.Use(middleware.Cors())
+	router.Use(middleware.ZapLogger())
 	// 认证角色路由
 	authGroup := router.Group("/api/v1")
 	for _, r := range routerAuthRole {
@@ -28,9 +32,9 @@ func InitRouter() {
 		r(noAuthGroup)
 	}
 	// 端口启动配置
-	conf := config.AppConfig
+	server := config.AppConfig.Server
 
-	address := fmt.Sprintf("%s:%d", conf.Server.Host, conf.Server.Port)
+	address := net.JoinHostPort(server.Host, strconv.Itoa(server.Port))
 	// 启动服务
 	router.Run(address)
 }
