@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 	"io"
 	"jingzhe-bg/main/internal/log"
-	"jingzhe-bg/main/utils"
+	"jingzhe-bg/main/utils/r"
 	"math"
 	"net"
 	"net/http"
@@ -30,7 +30,7 @@ type bodyLogWriter struct {
 var (
 	respPool = sync.Pool{
 		New: func() interface{} {
-			return &utils.Response{}
+			return &r.Response{}
 		},
 	}
 
@@ -163,9 +163,9 @@ func ZapLogger() gin.HandlerFunc {
 		c.Next()
 
 		latency := time.Since(start)
-		resp := respPool.Get().(*utils.Response)
+		resp := respPool.Get().(*r.Response)
 		defer respPool.Put(resp)
-		*resp = utils.Response{}
+		*resp = r.Response{}
 
 		var responseData interface{}
 		statusCode := c.Writer.Status()

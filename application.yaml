@@ -1,3 +1,19 @@
+# 服务配置
 server:
   host: "0.0.0.0"
   port: 8080
+# 数据库配置
+database:
+  db_name: "BlogSystem"
+  user: "kaichun_blog_system"
+  password: "FWZwthDe8nAwAjSm"
+  host: "49.232.171.17"
+  port: 3306
+## minio配置
+#minio:
+#  endpoint: 49.232.171.17:9000
+#  accessKeyID: kaichun_minio
+#  secretAccessKey: minio_kaichun_102601
+#  bucketName: blog-system
+#  filePath: http://49.232.171.17:9000/blog-system
+#  useSLL: false

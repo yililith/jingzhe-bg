@@ -6,8 +6,8 @@ import (
 )
 
 type conf struct {
-	Server serviceConfig `mapstructure:"server"`
-	// Database databaseConfig `mapstructure:"database"`
+	Server   serviceConfig  `mapstructure:"server"`
+	Database databaseConfig `mapstructure:"database"`
 	// Minio    minioConfig    `mapstructure:"minio"`
 }
 

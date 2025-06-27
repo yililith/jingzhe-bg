@@ -18,11 +18,26 @@ func InitRouter() {
 	gin.SetMode(gin.ReleaseMode)
 	// 初始化路由
 	router := gin.New()
+
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"code":    404,
+			"message": "path not found",
+		})
+	})
+
+	router.NoMethod(func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"code":    404,
+			"message": "method not found",
+		})
+	})
 	// 解决跨域问题
 	router.Use(middleware.Cors())
 	router.Use(middleware.ZapLogger())
 	// 认证角色路由
 	authGroup := router.Group("/api/v1")
+	authGroup.Use(middleware.AuthMiddleware())
 	for _, r := range routerAuthRole {
 		r(authGroup)
 	}
