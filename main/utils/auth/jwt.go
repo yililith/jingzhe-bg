@@ -2,7 +2,6 @@ package auth
 
 import (
 	"errors"
-	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"sync"
 	"time"
@@ -81,15 +80,15 @@ func ParseToken(tokenString string) (*JwtModel, error) {
 	if err != nil {
 		switch {
 		case errors.Is(err, jwt.ErrTokenExpired):
-			return nil, fmt.Errorf("token expired: %w", err)
+			return nil, errors.New("token expired")
 		case errors.Is(err, jwt.ErrTokenMalformed):
-			return nil, fmt.Errorf("token malformed: %w", err)
+			return nil, errors.New("token malformed")
 		case errors.Is(err, jwt.ErrTokenSignatureInvalid):
-			return nil, fmt.Errorf("token signature invalid: %w", err)
+			return nil, errors.New("token signature invalid")
 		case errors.Is(err, jwt.ErrTokenNotValidYet):
-			return nil, fmt.Errorf("token not yet valid: %w", err)
+			return nil, errors.New("token not yet valid")
 		default:
-			return nil, fmt.Errorf("parse token failed: %w", err)
+			return nil, errors.New("parse token failed")
 		}
 	}
 

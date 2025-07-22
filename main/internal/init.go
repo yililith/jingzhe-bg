@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"jingzhe-bg/main/app/router"
 	"jingzhe-bg/main/internal/config"
 	"jingzhe-bg/main/internal/database"
 	"jingzhe-bg/main/internal/log"
@@ -14,7 +15,7 @@ func InitRun() {
 		fmt.Println(config_err.Error())
 	}
 	// 日志初始化
-	log.InitLog()
+	log.InitLogger()
 	// 数据库链接初始化
 	if database_err := database.InitDB(); database_err != nil {
 		fmt.Println(database_err.Error())
@@ -23,4 +24,6 @@ func InitRun() {
 	if rsa_err := rsa.InitKey(); rsa_err != nil {
 		fmt.Println(rsa_err.Error())
 	}
+	// 启动Gin服务
+	router.InitRouter()
 }

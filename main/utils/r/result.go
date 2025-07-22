@@ -24,6 +24,7 @@ func (ctx *Result) Success(c *gin.Context, msg string, data interface{}) {
 
 // 失败返回范式
 func (ctx *Result) Fail(c *gin.Context, code int, msg string) {
+	c.Set("code", code)
 	c.JSON(http.StatusOK, &Response{
 		Code: code,
 		Msg:  msg,

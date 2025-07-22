@@ -3,7 +3,7 @@ package repo
 import (
 	"gorm.io/gorm"
 	"jingzhe-bg/main/app/model"
-	"jingzhe-bg/main/internal/database"
+	"jingzhe-bg/main/global"
 )
 
 type UserRepo struct {
@@ -11,7 +11,7 @@ type UserRepo struct {
 }
 
 func NewUserRepo() *UserRepo {
-	return &UserRepo{db: database.DB}
+	return &UserRepo{db: global.GVA_DB}
 }
 
 // 登录查询
