@@ -20,7 +20,6 @@ func NewUserApi() *UserApi {
 }
 
 func (ctx *UserApi) UserApi_login(c *gin.Context) {
-	//ctx.r.Success(c, "login success", nil)
 	var accept_data *dto.ResUserLoginDto
 	if err := c.ShouldBindJSON(&accept_data); err != nil {
 		ctx.result.Fail(c, http.StatusBadRequest, err.Error())

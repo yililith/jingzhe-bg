@@ -1,32 +1,37 @@
-package log // 定义 log 包，供其他地方引入使用
+package log
+
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"jingzhe-bg/main/global"
 	"os"
 	"strings"
 	"time"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-var lastTime string
-var lastUnix int64
+var (
+	lastTime string
+	lastUnix int64
+)
 
+// cachedTime 缓存时间，每秒更新一次
 func cachedTime() string {
 	now := time.Now().Unix()
-	if now != lastUnix { // 每秒更新一次（精度可调）
+	if now != lastUnix {
 		lastUnix = now
 		lastTime = time.Now().Format("2006-01-02T15:04:05.000-0700")
 	}
 	return lastTime
 }
 
-// 自定义日志级别编码器
+// customLevelEncoder 自定义日志级别编码器
 func customLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString("[JZ-DEBUG] [" + strings.ToUpper(l.String()) + "]\t" + cachedTime())
 }
 
-// 初始化支持日志切割的 Zap Logger
+// InitLogger 初始化支持日志切割的Zap Logger
 func InitLogger() {
 	// 1. 配置日志切割（文件输出）
 	fileWriter := zapcore.AddSync(&lumberjack.Logger{
