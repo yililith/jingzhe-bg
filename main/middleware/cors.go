@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+// Cors
+//
+//	@Description: 跨域中间件
+//	@return gin.HandlerFunc
 func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
 		AllowAllOrigins:  true,                                                // 允许所有来源

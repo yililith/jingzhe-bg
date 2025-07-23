@@ -5,6 +5,10 @@ import (
 	"jingzhe-bg/main/global"
 )
 
+// InitConfig
+//
+//	@Description: 配置初始化
+//	@return er
 func InitConfig() error {
 
 	viper.SetConfigName("application")

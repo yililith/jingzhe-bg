@@ -17,3 +17,5 @@
 {"level":"[JZ-DEBUG] [INFO]\t2025-07-22T18:45:00.016+0800","caller":"middleware/orm_logger.go:81","msg":"INFO","elapsed":"29.28ms","rows":1,"sql":"SELECT uid, password, nickname FROM `users` WHERE username = 'admin' AND status = 1"}
 {"level":"[JZ-DEBUG] [INFO]\t2025-07-22T18:45:00.016+0800","caller":"middleware/orm_logger.go:81","msg":"INFO","elapsed":"18.4228ms","rows":1,"sql":"SELECT id, minio_path FROM `user_images` WHERE uid = '226717c6-e328-4770-a7a1-e697ae950976' AND is_deleted = 0 AND is_avatar = 1 ORDER BY `user_images`.`id` LIMIT 1"}
 {"level":"[JZ-DEBUG] [INFO]\t2025-07-22T18:45:00.016+0800","caller":"middleware/log.go:36","msg":"INFO","http_status":200,"method":"POST","path":"/api/v2/user/login","ip":"127.0.0.1","latency":"108.4506ms"}
+{"level":"[JZ-DEBUG] [ERROR]\t2025-07-23T17:01:53.172+0800","caller":"middleware/log.go:37","msg":"ERROR","http_status":500,"method":"POST","path":"/api/v2/user/create/user","ip":"127.0.0.1","latency":"660.2µs"}
+{"level":"[JZ-DEBUG] [ERROR]\t2025-07-23T17:02:17.002+0800","caller":"middleware/log.go:37","msg":"ERROR","http_status":500,"method":"POST","path":"/api/v2/user/create/user","ip":"127.0.0.1","latency":"0s"}

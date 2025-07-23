@@ -9,7 +9,8 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// ZapGormLogger 完全实现 logger.Interface 接口（保留原名）
+// ZapGormLogger
+// @Description: orm日志中间件
 type ZapGormLogger struct {
 	ZapLogger     *zap.Logger
 	LogLevel      logger.LogLevel

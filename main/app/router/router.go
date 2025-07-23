@@ -13,6 +13,9 @@ var (
 	routerNoAuthRole = make([]func(*gin.RouterGroup), 0)
 )
 
+// InitRouter
+//
+//	@Description: Gin路由初始化
 func InitRouter() {
 	// 设置为 Release 模式（禁用Gin自带 Debug 日志）
 	gin.SetMode(gin.ReleaseMode)
@@ -51,7 +54,10 @@ func InitRouter() {
 	}
 }
 
-// 需认证路由
+// routerAuthGroup
+//
+//	@Description: 需认证路由
+//	@param router
 func routerAuthGroup(router *gin.Engine) {
 	authGroup := router.Group("/api/v1")
 	authGroup.Use(middleware.AuthMiddleware())
@@ -60,7 +66,10 @@ func routerAuthGroup(router *gin.Engine) {
 	}
 }
 
-// 不需要认证路由
+// routerNoAuthGroup
+//
+//	@Description: 不需认证路由
+//	@param router
 func routerNoAuthGroup(router *gin.Engine) {
 	noAuthGroup := router.Group("/api/v2")
 	for _, r := range routerNoAuthRole {

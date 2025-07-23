@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+// ZapLogger
+//
+//	@Description: 日志中间件
+//	@param logger
+//	@return gin.HandlerFunc
 func ZapLogger(logger *zap.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()

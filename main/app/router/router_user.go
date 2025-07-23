@@ -19,10 +19,15 @@ func init() {
 //	}
 //}
 
+// noAuthUserRouter
+//
+//	@Description: 不需认证路由表
+//	@param r
 func noAuthUserRouter(r *gin.RouterGroup) {
 	col := api.NewUserApi()
 	group := r.Group("/user")
 	{
-		group.POST("/login", col.UserApi_login)
+		group.POST("/login", col.LoginApi)
+		group.POST("/create/user", col.CreateUserApi)
 	}
 }

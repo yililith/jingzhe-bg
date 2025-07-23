@@ -15,6 +15,10 @@ var (
 	retryDelay = 5 * time.Second
 )
 
+// InitDB
+//
+//	@Description: 数据库初始化
+//	@return er
 func InitDB() error {
 
 	conf := global.GVA_CONFIG.Database

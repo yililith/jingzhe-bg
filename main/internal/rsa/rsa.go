@@ -5,26 +5,32 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
+	"jingzhe-bg/main/global"
 	"os"
 )
 
-var PublicKey *rsa.PublicKey
-var PrivateKey *rsa.PrivateKey
-
+// InitKey
+//
+//	@Description: 公私钥初始化
+//	@return er
 func InitKey() error {
 	var err error
-	PublicKey, err = loadPublicKey()
+	global.GVA_PUBLIC_KEY, err = loadPublicKey()
 	if err != nil {
 		return err
 	}
-	PrivateKey, err = loadPrivateKey()
+	global.GVA_PRIVATE_KEY, err = loadPrivateKey()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// 加载公钥
+// loadPublicKey
+//
+//	@Description: 加载公钥
+//	@return *rsa.PublicKey
+//	@return er
 func loadPublicKey() (*rsa.PublicKey, error) {
 	data, err_one := os.ReadFile("./public_key.pem")
 	if err_one != nil {
@@ -46,7 +52,11 @@ func loadPublicKey() (*rsa.PublicKey, error) {
 	return key, nil
 }
 
-// 加载私钥
+// loadPrivateKey
+//
+//	@Description: 加载私钥
+//	@return *rsa.PrivateKey
+//	@return er
 func loadPrivateKey() (*rsa.PrivateKey, error) {
 	data, err_one := os.ReadFile("./private_key.pem")
 	if err_one != nil {

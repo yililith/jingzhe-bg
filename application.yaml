@@ -10,10 +10,10 @@ database:
   host: "49.232.171.17"
   port: 3306
 ## minio配置
-#minio:
-#  endpoint: 49.232.171.17:9000
-#  accessKeyID: kaichun_minio
-#  secretAccessKey: minio_kaichun_102601
-#  bucketName: blog-system
-#  filePath: http://49.232.171.17:9000/blog-system
-#  useSLL: false
+minio:
+  endpoint: 49.232.171.17:9000
+  accessKeyID: kaichun_minio
+  secretAccessKey: minio_kaichun_102601
+  bucketName: blog-system
+  filePath: http://49.232.171.17:9000/blog-system
+  useSLL: false

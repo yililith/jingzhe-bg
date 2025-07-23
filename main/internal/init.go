@@ -7,6 +7,7 @@ import (
 	"jingzhe-bg/main/internal/database"
 	"jingzhe-bg/main/internal/log"
 	"jingzhe-bg/main/internal/rsa"
+	"jingzhe-bg/main/internal/validator"
 )
 
 // 对配置文件,数据库,对象存储,日志等进行初始化
@@ -24,6 +25,8 @@ func InitRun() {
 	if rsa_err := rsa.InitKey(); rsa_err != nil {
 		fmt.Println(rsa_err.Error())
 	}
+	// 字符串验证
+	validator.InitValidator()
 	// 启动Gin服务
 	router.InitRouter()
 }

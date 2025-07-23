@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"jingzhe-bg/main/internal/rsa"
+	"jingzhe-bg/main/global"
 	"jingzhe-bg/main/utils/auth"
 	"jingzhe-bg/main/utils/ead"
 	"net/http"
@@ -18,6 +18,10 @@ func abortWithJSON(c *gin.Context, httpCode int, businessCode int, msg string) {
 	c.Abort()
 }
 
+// AuthMiddleware
+//
+//	@Description: 认证中间件
+//	@return gin.HandlerFunc
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
@@ -39,7 +43,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		// 解密 token（注意：RSA 性能低，高并发场景建议替代或缓存）
-		decryptedToken, err := ead.DecryptWithPrivateKey(rsa.PrivateKey, jwtToken)
+		decryptedToken, err := ead.DecryptWithPrivateKey(global.GVA_PRIVATE_KEY, jwtToken)
 		if err != nil {
 			abortWithJSON(c, http.StatusInternalServerError, http.StatusInternalServerError, "token decryption failed: "+err.Error())
 			return

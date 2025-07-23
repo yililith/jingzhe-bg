@@ -31,7 +31,9 @@ func customLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString("[JZ-DEBUG] [" + strings.ToUpper(l.String()) + "]\t" + cachedTime())
 }
 
-// InitLogger 初始化支持日志切割的Zap Logger
+// InitLogger
+//
+//	@Description: 日志初始化
 func InitLogger() {
 	// 1. 配置日志切割（文件输出）
 	fileWriter := zapcore.AddSync(&lumberjack.Logger{
