@@ -6,6 +6,7 @@ import (
 )
 
 func init() {
+	routerAuthRole = append(routerAuthRole, authUserRouter)
 	routerNoAuthRole = append(routerNoAuthRole, noAuthUserRouter)
 }
 

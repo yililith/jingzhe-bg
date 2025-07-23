@@ -25,17 +25,17 @@ func NewUserApi() *UserApi {
 //	@receiver ctx
 //	@param c
 func (ctx *UserApi) LoginApi(c *gin.Context) {
-	var accept_data *dto.UserLoginDto
-	if err := c.ShouldBindJSON(&accept_data); err != nil {
-		ctx.result.Fail(c, http.StatusBadRequest, err.Error())
+	var req *dto.UserLoginDto
+	if err := c.ShouldBindJSON(&req); err != nil {
+		ctx.result.Fail(c, http.StatusBadRequest, "参数解析失败")
 		return
 	}
-	login_data, service_err := ctx.service.UserLoginService(accept_data.Username, accept_data.Password)
-	if service_err != nil {
-		ctx.result.Fail(c, http.StatusInternalServerError, service_err.Error())
+	loginData, err := ctx.service.UserLoginService(req.Username, req.Password)
+	if err != nil {
+		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.result.Success(c, "login success", login_data)
+	ctx.result.Success(c, "login success", loginData)
 }
 
 // CreateUserApi
@@ -44,16 +44,31 @@ func (ctx *UserApi) LoginApi(c *gin.Context) {
 //	@receiver ctx
 //	@param c
 func (ctx *UserApi) CreateUserApi(c *gin.Context) {
-	var accept_data *dto.CreateUserDto
+	var req *dto.CreateUserDto
 
-	if err := c.ShouldBindJSON(&accept_data); err != nil {
+	if err := c.ShouldBindJSON(&req); err != nil {
 		ctx.result.Fail(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if create_err := ctx.service.CreateUserService(accept_data); create_err != nil {
-		ctx.result.Fail(c, http.StatusInternalServerError, create_err.Error())
+	if err := ctx.service.CreateUserService(req); err != nil {
+		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	ctx.result.Success(c, "create success", "")
+}
+
+// GetUserPagingApi
+//
+//	@Description: 分页获取用户数据
+//	@receiver ctx
+//	@param c
+func (ctx *UserApi) GetUserPagingApi(c *gin.Context) {
+	var req dto.GetUserPagingDto
+
+	if err := c.ShouldBindQuery(&req); err != nil {
+		ctx.result.Fail(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
 }

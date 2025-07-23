@@ -24,11 +24,11 @@ func NewUserRepo() *UserRepo {
 //	@return er
 func (ctx *UserRepo) UserLoginRepo(username string) (*model.UserModel, error) {
 	var user model.UserModel
-	if select_err := ctx.db.
+	if err := ctx.db.
 		Select("uid, password, nickname").
 		Where("username = ? AND status = 1", username).
-		Find(&user).Error; select_err != nil {
-		return nil, select_err
+		Find(&user).Error; err != nil {
+		return nil, err
 	}
 
 	return &user, nil
@@ -43,11 +43,11 @@ func (ctx *UserRepo) UserLoginRepo(username string) (*model.UserModel, error) {
 //	@return er
 func (ctx *UserRepo) GetUserAvatarRepo(uid int64) (*model.UserImageModel, error) {
 	var avatar model.UserImageModel
-	if select_err := ctx.db.
+	if err := ctx.db.
 		Select("id, minio_path").
 		Where("uid = ? AND is_deleted = 0 AND is_avatar = 1", uid).
-		First(&avatar).Error; select_err != nil {
-		return nil, select_err
+		First(&avatar).Error; err != nil {
+		return nil, err
 	}
 	return &avatar, nil
 }
@@ -59,7 +59,7 @@ func (ctx *UserRepo) GetUserAvatarRepo(uid int64) (*model.UserImageModel, error)
 //	@param username
 //	@return int64
 //	@return er
-func (ctx UserRepo) HasUserRepo(username string) (int64, error) {
+func (ctx *UserRepo) HasUserRepo(username string) (int64, error) {
 	var count int64
 	tx := ctx.db.Model(&model.UserModel{}).
 		Where("username = ?", username).
@@ -93,9 +93,9 @@ func (ctx *UserRepo) CreateNewUserRepo(newUser *dto.CreateUserDto) error {
 		Status:   1,
 	})
 
-	if commit_err := begin.Commit().Error; commit_err != nil {
+	if err := begin.Commit().Error; err != nil {
 		begin.Rollback()
-		return commit_err
+		return err
 	}
 
 	return nil

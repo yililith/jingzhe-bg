@@ -50,9 +50,9 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		// 解析 JWT
-		claims, parseErr := auth.ParseToken(decryptedToken)
-		if parseErr != nil {
-			abortWithJSON(c, http.StatusUnauthorized, http.StatusUnauthorized, "invalid token: "+parseErr.Error())
+		claims, err := auth.ParseToken(decryptedToken)
+		if err != nil {
+			abortWithJSON(c, http.StatusUnauthorized, http.StatusUnauthorized, "invalid token: "+err.Error())
 			return
 		}
 

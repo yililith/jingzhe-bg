@@ -32,18 +32,18 @@ func InitKey() error {
 //	@return *rsa.PublicKey
 //	@return er
 func loadPublicKey() (*rsa.PublicKey, error) {
-	data, err_one := os.ReadFile("./public_key.pem")
-	if err_one != nil {
-		return nil, err_one
+	data, err := os.ReadFile("./public_key.pem")
+	if err != nil {
+		return nil, err
 	}
 	block, _ := pem.Decode(data)
 	if block == nil || block.Type != "PUBLIC KEY" {
 		return nil, fmt.Errorf("failed to decode PEM block containing public key")
 	}
-	pubKey, err_two := x509.ParsePKIXPublicKey(block.Bytes)
-	if err_two != nil {
-		fmt.Println(err_two.Error())
-		return nil, err_two
+	pubKey, err := x509.ParsePKIXPublicKey(block.Bytes)
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil, err
 	}
 	key, ok := pubKey.(*rsa.PublicKey)
 	if !ok {
@@ -58,18 +58,18 @@ func loadPublicKey() (*rsa.PublicKey, error) {
 //	@return *rsa.PrivateKey
 //	@return er
 func loadPrivateKey() (*rsa.PrivateKey, error) {
-	data, err_one := os.ReadFile("./private_key.pem")
-	if err_one != nil {
-		return nil, err_one
+	data, err := os.ReadFile("./private_key.pem")
+	if err != nil {
+		return nil, err
 	}
 	block, _ := pem.Decode(data)
 	if block == nil || block.Type != "PRIVATE KEY" {
 		return nil, fmt.Errorf("failed to decode PEM block containing private key")
 	}
-	privKey, err_two := x509.ParsePKCS8PrivateKey(block.Bytes)
-	if err_two != nil {
-		fmt.Println(err_two.Error())
-		return nil, err_two
+	privKey, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil, err
 	}
 	key, ok := privKey.(*rsa.PrivateKey)
 	if !ok {

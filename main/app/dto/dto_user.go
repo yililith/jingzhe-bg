@@ -12,3 +12,8 @@ type CreateUserDto struct {
 	Password string `json:"password" binding:"required" validate:"min=8,max=16,containsany=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.*%!#$"`
 	Nickname string `json:"nickname" binding:"required" validate:"min=3,max=10"`
 }
+
+type GetUserPagingDto struct {
+	Page int `form:"page" binding:"required"`
+	Size int `form:"size" binding:"required"`
+}
