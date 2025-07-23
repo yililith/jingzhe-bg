@@ -9,15 +9,15 @@ func init() {
 	routerNoAuthRole = append(routerNoAuthRole, noAuthUserRouter)
 }
 
-//// 需要认证的路由
-//func authUserRouter(r *gin.RouterGroup) {
-//	col := api.NewUserApi()
-//	group := r.Group("/user")
-//	{
-//		// 登录
-//		group.POST("/login", col.UserApi_login)
-//	}
-//}
+// 需要认证的路由
+func authUserRouter(r *gin.RouterGroup) {
+	col := api.NewUserApi()
+	group := r.Group("/user")
+	{
+		// 登录
+		group.POST("/login", col.CreateUserApi)
+	}
+}
 
 // noAuthUserRouter
 //
@@ -28,6 +28,5 @@ func noAuthUserRouter(r *gin.RouterGroup) {
 	group := r.Group("/user")
 	{
 		group.POST("/login", col.LoginApi)
-		group.POST("/create/user", col.CreateUserApi)
 	}
 }
