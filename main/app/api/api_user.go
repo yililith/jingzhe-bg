@@ -87,11 +87,14 @@ func (ctx UserApi) PutUserImageApi(c *gin.Context) {
 	}
 	// 接收文件
 	file, header, err := c.Request.FormFile("image")
-	defer file.Close()
 	if err != nil {
 		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
 		return
 	}
+	defer func() {
+		_ = file.Close()
+
+	}()
 	if err = ctx.service.PutUserAvatarService(req.UID, file, header); err != nil {
 		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
 		return
