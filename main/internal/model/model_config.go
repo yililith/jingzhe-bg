@@ -3,7 +3,7 @@ package model
 type Conf struct {
 	Server   serviceConfig  `mapstructure:"server"`
 	Database databaseConfig `mapstructure:"database"`
-	Minio    minioConfig    `mapstructure:"minio"`
+	Minio    minioConfig    `mapstructure:"oss"`
 }
 
 type serviceConfig struct {

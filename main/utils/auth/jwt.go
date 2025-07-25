@@ -9,7 +9,7 @@ import (
 
 type JwtModel struct {
 	AvatarID string `json:"avatar_id"`
-	UID      int64  `json:"uid"`
+	UID      uint64 `json:"uid"`
 	Username string `json:"username"`
 	jwt.RegisteredClaims
 }
@@ -53,7 +53,7 @@ func initParsingKey() {
 }
 
 // GenerateToken 生成 JWT Token
-func GenerateToken(avatarID, username string, uid int64) (string, error) {
+func GenerateToken(avatarID, username string, uid uint64) (string, error) {
 	initSecretKey()
 
 	claims := JwtModel{

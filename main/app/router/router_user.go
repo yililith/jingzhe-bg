@@ -16,7 +16,8 @@ func authUserRouter(r *gin.RouterGroup) {
 	group := r.Group("/user")
 	{
 		// 登录
-		group.POST("/login", col.CreateUserApi)
+		group.POST("/create/user", col.CreateUserApi)
+		group.POST("/put/avatar", col.PutUserImageApi)
 	}
 }
 

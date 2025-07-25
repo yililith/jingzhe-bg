@@ -72,3 +72,29 @@ func (ctx *UserApi) GetUserPagingApi(c *gin.Context) {
 	}
 
 }
+
+// UploadUserImageApi
+//
+//	@Description: 上传用户图片
+//	@receiver ctx
+//	@param c
+func (ctx UserApi) PutUserImageApi(c *gin.Context) {
+	// 接收关联uid
+	var req *dto.PutUserAvatarDto
+	if err := c.ShouldBindJSON(&req); err != nil {
+		ctx.result.Fail(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	// 接收文件
+	file, header, err := c.Request.FormFile("image")
+	defer file.Close()
+	if err != nil {
+		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	if err = ctx.service.PutUserAvatarService(req.UID, file, header); err != nil {
+		ctx.result.Fail(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	ctx.result.Success(c, "success", "")
+}

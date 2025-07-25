@@ -17,3 +17,7 @@ type GetUserPagingDto struct {
 	Page int `form:"page" binding:"required"`
 	Size int `form:"size" binding:"required"`
 }
+
+type PutUserAvatarDto struct {
+	UID uint64 `json:"uid" binding:"required"`
+}

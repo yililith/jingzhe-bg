@@ -78,22 +78,26 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_image`;
 CREATE TABLE `user_image`  (
-                               `IID` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '图片唯一ID',
-                               `UID` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户ID，9位数字',
-                               `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '图片在OSS中的路径',
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键ID',
+                               `uid` bigint NOT NULL COMMENT '用户ID，bigint类型',
+                               `objectName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '图片在OSS中的对象名',
                                `bucket` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '图片所在存储桶',
+                               `etag` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件内容MD5，用于唯一标识',
+                               `file_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件类型，如 image/webp',
                                `is_avatar` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否为头像：1是，0不是',
                                `file_size` int NOT NULL COMMENT '图片大小(字节)',
                                `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否逻辑删除：1是，0不是',
                                `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-                               PRIMARY KEY (`IID`) USING BTREE,
-                               INDEX `idx_uid`(`UID` ASC) USING BTREE,
+                               PRIMARY KEY (`id`) USING BTREE,
+                               INDEX `idx_uid`(`uid` ASC) USING BTREE,
                                INDEX `idx_is_avatar`(`is_avatar` ASC) USING BTREE,
-                               INDEX `idx_is_deleted`(`is_deleted` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户图片关联表' ROW_FORMAT = Dynamic;
+                               INDEX `idx_is_deleted`(`is_deleted` ASC) USING BTREE,
+                               UNIQUE KEY `uniq_etag` (`etag`)
+) ENGINE=InnoDB CHARACTER SET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户图片关联表' ROW_FORMAT=Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
 
 
 
