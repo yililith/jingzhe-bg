@@ -70,7 +70,7 @@ func (ctx *UserService) UserLoginService(username string, password string) (map[
 		global.GAV_MINIO_CLIENT,
 		global.GVA_CONFIG.Minio.BucketName,
 		avatarData.ObjectName,
-		2,
+		2*time.Hour,
 	)
 	if err != nil {
 		return nil, err

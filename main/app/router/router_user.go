@@ -30,5 +30,6 @@ func noAuthUserRouter(r *gin.RouterGroup) {
 	group := r.Group("/user")
 	{
 		group.POST("/login", col.LoginApi)
+		group.POST("/upload/avatar", col.PutUserImageApi)
 	}
 }

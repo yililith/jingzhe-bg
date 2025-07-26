@@ -11,9 +11,9 @@ database:
   port: 3306
 ## minio配置
 minio:
-  endpoint: 49.232.171.17:9000
-  accessKeyID: kaichun_minio
-  secretAccessKey: minio_kaichun_102601
-  bucketName: blog-system
-  filePath: http://49.232.171.17:9000/blog-system
+  endpoint: "49.232.171.17:9000"
+  accessKeyID: "kaichun_minio"
+  secretAccessKey: "kaichun_minio_102601"
+  bucketName: "avatar"
+  filePath: "http://49.232.171.17:9001/avatar"
   useSLL: false

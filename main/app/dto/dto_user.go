@@ -19,5 +19,5 @@ type GetUserPagingDto struct {
 }
 
 type PutUserAvatarDto struct {
-	UID uint64 `json:"uid" binding:"required"`
+	UID uint64 `form:"uid" binding:"required"`
 }

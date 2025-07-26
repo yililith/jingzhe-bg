@@ -78,10 +78,10 @@ func (ctx *UserApi) GetUserPagingApi(c *gin.Context) {
 //	@Description: 上传用户图片
 //	@receiver ctx
 //	@param c
-func (ctx UserApi) PutUserImageApi(c *gin.Context) {
+func (ctx *UserApi) PutUserImageApi(c *gin.Context) {
 	// 接收关联uid
-	var req *dto.PutUserAvatarDto
-	if err := c.ShouldBindJSON(&req); err != nil {
+	var req dto.PutUserAvatarDto
+	if err := c.ShouldBind(&req); err != nil {
 		ctx.result.Fail(c, http.StatusBadRequest, err.Error())
 		return
 	}

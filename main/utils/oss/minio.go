@@ -47,7 +47,11 @@ func GeneratePresignedURL(client *minio.Client, bucketName, objectName string, e
 	// 生成签名URL
 	presignedURL, err := client.PresignedGetObject(context.Background(), bucketName, objectName, expiry, nil)
 	if err != nil {
-		global.GVA_LOGGER.Error("获取签名链接失败", zap.String("err", err.Error()))
+		global.GVA_LOGGER.Error("获取签名链接失败",
+			zap.String("err", err.Error()),
+			zap.String("bucket", bucketName),
+			zap.String("object", objectName),
+		)
 		return "", er.JZError("获取头像链接失败")
 	}
 	return presignedURL.String(), nil
